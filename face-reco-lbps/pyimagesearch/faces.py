@@ -64,12 +64,12 @@ def load_face_dataset(inputPath, net, minConfidence=0.5,
 		name = imagePath.split(os.path.sep)[-2]
 
 		if counts[names.index(name)] < minSamples:
-                        continue
-                faceROI = image.copy()
-                faceROI = cv2.resize(faceROI, (47, 62))
-                faceROI = cv2.cvtColor(faceROI, cv2.COLOR_BGR2GRAY)
+			continue
+		faceROI = image.copy()
+		faceROI = cv2.resize(faceROI, (47, 62))
+		faceROI = cv2.cvtColor(faceROI, cv2.COLOR_BGR2GRAY)
 
-                faces.append(faceROI)
+		faces.append(faceROI)
 		labels.append(name)
 
 	# convert our faces and labels lists to NumPy arrays
