@@ -1,13 +1,13 @@
 import cv2
 import numpy as np
 import time
-import requests
+#import requests
 
 
 def HAAR(image):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     rects = cascade.detectMultiScale(image, scaleFactor=1.1,
-                                       minNeighbors=50, minSize=(30, 30),
+                                       minNeighbors=2, minSize=(30, 30),
                                        flags = cv2.CASCADE_SCALE_IMAGE)
     if len(rects) == 0: return None
     rects[:,2:] += rects[:,:2]
@@ -25,15 +25,15 @@ def HAAR(image):
 
 ip = "http://hackaton.sber-zvuk.com/hackathon_part_1.mp4"
 haar_path = "face.xml"
-#resolution=(1920, 1080)
-resolution=(1280, 720)
+resolution=(1920, 1080)
+#resolution=(1280, 720)
 
-#CODEC=cv2.VideoWriter_fourcc('M','J','P','G')
+CODEC=cv2.VideoWriter_fourcc('M','J','P','G')
 vid_capture = cv2.VideoCapture(ip)
 vid_capture.set(cv2.CAP_PROP_FRAME_WIDTH, resolution[0])
 vid_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, resolution[1])
-#vid_capture.set(cv2.CAP_PROP_FOURCC, CODEC)
-vid_capture.set(cv2.CAP_PROP_FPS, 60)
+vid_capture.set(cv2.CAP_PROP_FOURCC, CODEC)
+#vid_capture.set(cv2.CAP_PROP_FPS, 60)
 vid_capture.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
 while vid_capture.isOpened():
@@ -59,7 +59,7 @@ while vid_capture.isOpened():
                 face = cv2.blur(face, (15, 15))
 
             image[box[1]:box[3], box[0]:box[2]] = face
-            cv2.rectangle(image, (box[0],box[1]), (box[2],box[3]), (255,255,255), thickness=2)
+            #cv2.rectangle(image, (box[0],box[1]), (box[2],box[3]), (255,255,255), thickness=2)
 
     cv2.imshow('feed', image)
     
