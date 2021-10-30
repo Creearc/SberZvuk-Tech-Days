@@ -202,35 +202,35 @@ def findCosineSimilarity(source_representation, test_representation):
  
 
 if __name__ == '__main__':
-   mat = scipy.io.loadmat('imdb_crop/imdb.mat')
-
-   columns = ["dob", "photo_taken", "full_path", "gender", "name", "face_location", "face_score", "second_face_score", "celeb_names", "celeb_id"]
-   instances = mat['imdb'][0][0][0].shape[1]
-   df = pd.DataFrame(index = range(0,instances), columns = columns)
-
-   
-   for i in mat:
-       if i == "imdb":
-           current_array = mat[i][0][0]
-           for j in range(len(current_array)):
-               #print(j,". ",columns[j],": ",current_array[j][0])
-               df[columns[j]] = pd.DataFrame(current_array[j][0])
-
-   df = df[df['face_score'] != -np.inf]
-   df = df[df['second_face_score'].isna()]
-   df = df[df['face_score'] >= 3]
-
-   def extractNames(name):
-    return name[0]
-
-   df['celebrity_name'] = df['name'].apply(extractNames)
-
-   def getImagePixels(image_path):
-       return cv2.imread("imdb_crop/%s" % image_path[0])
-
-   df['pixels'] = df['full_path'].apply(getImagePixels)
-   df['face_vector_raw'] = df['pixels'].apply(findFaceRepresentation)   
-   df['similarity'] = df['face_vector_raw'].apply(findCosineSimilarity)
+##   mat = scipy.io.loadmat('imdb_crop/imdb.mat')
+##
+##   columns = ["dob", "photo_taken", "full_path", "gender", "name", "face_location", "face_score", "second_face_score", "celeb_names", "celeb_id"]
+##   instances = mat['imdb'][0][0][0].shape[1]
+##   df = pd.DataFrame(index = range(0,instances), columns = columns)
+##
+##   
+##   for i in mat:
+##       if i == "imdb":
+##           current_array = mat[i][0][0]
+##           for j in range(len(current_array)):
+##               #print(j,". ",columns[j],": ",current_array[j][0])
+##               df[columns[j]] = pd.DataFrame(current_array[j][0])
+##
+##   df = df[df['face_score'] != -np.inf]
+##   df = df[df['second_face_score'].isna()]
+##   df = df[df['face_score'] >= 3]
+##
+##   def extractNames(name):
+##    return name[0]
+##
+##   df['celebrity_name'] = df['name'].apply(extractNames)
+##
+##   def getImagePixels(image_path):
+##       return cv2.imread("imdb_crop/%s" % image_path[0])
+##
+##   df['pixels'] = df['full_path'].apply(getImagePixels)
+##   df['face_vector_raw'] = df['pixels'].apply(findFaceRepresentation)   
+##   df['similarity'] = df['face_vector_raw'].apply(findCosineSimilarity)
    
    model = loadVggFaceModel()
    #Pretrained weights: https://drive.google.com/file/d/1CPSeum3HpopfomUEK1gybeuIVoeJT_Eo/view?usp=sharing
@@ -300,12 +300,13 @@ if __name__ == '__main__':
             img_pixels -= 1
              
             yourself_representation = model.predict(img_pixels)[0,:]
-            df['similarity'] = df['face_vector_raw'].apply(findCosineSimilarity)
-            df = df.sort_values(by=['similarity'], ascending=True)
-            instance = df.iloc[0]
-            name = instance['celebrity_name']
-
-            print(name)
+            print(min(yourself_representation))
+##            df['similarity'] = df['face_vector_raw'].apply(findCosineSimilarity)
+##            df = df.sort_values(by=['similarity'], ascending=True)
+##            instance = df.iloc[0]
+##            name = instance['celebrity_name']
+##
+##            print(name)
             
      web_set(img)
      #cv2.imshow('feed', image)
