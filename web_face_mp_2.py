@@ -40,12 +40,8 @@ recognizer = pickle.loads(open(args["recognizer"], "rb").read())
 le = pickle.loads(open(args["le"], "rb").read())
 
 
-
 main_frame = None
 lock = threading.Lock()
-
-mp_face_detection = mp.solutions.face_detection
-mp_drawing = mp.solutions.drawing_utils
 
 PAGE="""\
 <html>
