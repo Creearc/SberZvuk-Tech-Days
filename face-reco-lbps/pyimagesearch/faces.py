@@ -63,8 +63,6 @@ def load_face_dataset(inputPath, net, minConfidence=0.5,
 		print(image)
 		name = imagePath.split(os.path.sep)[-2]
 
-		# only process images that have a sufficient number of
-		# examples belonging to the class
 		if counts[names.index(name)] < minSamples:
                         continue
                 faceROI = image.copy()
