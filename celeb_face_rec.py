@@ -258,8 +258,8 @@ if __name__ == '__main__':
             img[box[1]:box[3], box[0]:box[2]] = face
             #cv2.rectangle(image, (box[0],box[1]), (box[2],box[3]), (255,255,255), thickness=2)
 
-            img_pixels = image.img_to_array(detected_face)
-            img_pixels = image.img_to_array(detected_face)
+            img_pixels = image.img_to_array(face)
+            img_pixels = image.img_to_array(face)
             img_pixels = np.expand_dims(img_pixels, axis = 0)
             img_pixels /= 127.5
             img_pixels -= 1
