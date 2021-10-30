@@ -8,11 +8,15 @@ URL = "https://www.youtube.com/watch?v={}"
 for idd in os.listdir(PATH):
   for url in os.listdir('{}/{}'.format(PATH, idd)):
     skip = False
+    print(URL.format(url))
     vid_capture = cv2.VideoCapture(URL.format(url))
+    frame_count = int(vid_capture.get(cv2.CAP_PROP_FRAME_COUNT))
+    print(frame_count)
     
     for file in os.listdir('{}/{}/{}'.format(PATH, idd, url)):
       if skip:
         f.close()
+        vid_capture.release()
         break
       
       f = open('{}/{}/{}/{}'.format(PATH, idd, url, file))
@@ -36,4 +40,5 @@ for idd in os.listdir(PATH):
             break
         
       f.close()
+      vid_capture.release()
     
