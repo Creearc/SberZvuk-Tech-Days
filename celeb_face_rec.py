@@ -240,7 +240,7 @@ if __name__ == '__main__':
      h, w = img.shape[:2]
 
      # Resize
-     img = cv2.resize(image, (720,405))
+     #img = cv2.resize(img, (720,405))
 
      cascade = cv2.CascadeClassifier(haar_path)    
      boxes = HAAR(img)
