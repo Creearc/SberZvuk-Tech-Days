@@ -179,7 +179,7 @@ if __name__ == '__main__':
         box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
         (startX, startY, endX, endY) = box.astype("int")
 
-        face = image[startY:endY, startX:endX]
+        face = img[startY:endY, startX:endX]
         (fH, fW) = face.shape[:2]
 
         if fW < 20 or fH < 20:
@@ -206,7 +206,7 @@ if __name__ == '__main__':
         face = cv2.resize(face, (5, 5))
         face = cv2.resize(face, (fW, fH))
 
-        image[startY:endY, startX:endX] = face
+        img[startY:endY, startX:endX] = face
 
         web_set(img)
  
