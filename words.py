@@ -401,6 +401,8 @@ arr = [
   "" 
   ]
 
+arr = []
+
 words = '["{}", "[unk]"]'.format(' '.join(arr))
 
 
