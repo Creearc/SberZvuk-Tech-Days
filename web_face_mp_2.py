@@ -199,22 +199,22 @@ if __name__ == '__main__':
         preds = recognizer.predict_proba(vec)[0]
 
         j = np.argmax(preds)
-	proba = preds[j]
-	name = le.classes_[j]
+        proba = preds[j]
+        name = le.classes_[j]
 
-	text = "{}: {:.2f}%".format(name, proba * 100)
-	y = startY - 10 if startY - 10 > 10 else startY + 10
+        text = "{}: {:.2f}%".format(name, proba * 100)
+        y = startY - 10 if startY - 10 > 10 else startY + 10
 
-	cv2.rectangle(img, (startX, startY), (endX, endY),
-			(0, 0, 255), 2)
-	cv2.putText(img, text, (startX, y),
-			cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
+        cv2.rectangle(img, (startX, startY), (endX, endY),
+                      (0, 0, 255), 2)
+        cv2.putText(img, text, (startX, y),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
 
-	face = cv2.resize(face, (5, 5))
-	face = cv2.resize(face, (fW, fH))
+        face = cv2.resize(face, (5, 5))
+        face = cv2.resize(face, (fW, fH))
 
-	image[startY:endY, startX:endX] = face
+        image[startY:endY, startX:endX] = face
 
-	web_set(img)
+        web_set(img)
  
   vid_capture.release()
