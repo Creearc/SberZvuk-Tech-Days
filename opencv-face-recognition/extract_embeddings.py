@@ -62,6 +62,8 @@ for (i, imagePath) in enumerate(imagePaths):
 	# maintaining the aspect ratio), and then grab the image
 	# dimensions
 	image = cv2.imread(imagePath)
+	if image is None:
+		continue
 	image = imutils.resize(image, width=600)
 	(h, w) = image.shape[:2]
 
