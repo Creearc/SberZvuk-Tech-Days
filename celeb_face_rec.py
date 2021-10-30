@@ -281,6 +281,7 @@ if __name__ == '__main__':
      if boxes:
          for box in boxes:
             face = img[box[1]:box[3], box[0]:box[2]]
+            face_to_detect = face.copy()
             # Blur
             if True:
               face = cv2.resize(face, (5, 5))
@@ -290,10 +291,9 @@ if __name__ == '__main__':
 
             img[box[1]:box[3], box[0]:box[2]] = face
             #cv2.rectangle(image, (box[0],box[1]), (box[2],box[3]), (255,255,255), thickness=2)
-            face = cv2.resize(face, (224, 224))
+            face_to_detect = cv2.resize(face_to_detect (224, 224))
             
-            img_pixels = image.img_to_array(face)
-            img_pixels = image.img_to_array(face)
+            img_pixels = image.img_to_array(face_to_detect)
             img_pixels = np.expand_dims(img_pixels, axis = 0)
             img_pixels /= 127.5
             img_pixels -= 1
