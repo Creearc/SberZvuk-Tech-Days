@@ -158,13 +158,16 @@ if __name__ == '__main__':
   vid_capture.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
   while vid_capture.isOpened():
-    ret, img = vid_capture.read()
+    ret, frame = vid_capture.read()
 
     if not ret:
       continue
 
+    (h0, w0) = img.shape[:2]
+    img = frame.copy()
     img = imutils.resize(img, width=600)
     (h, w) = img.shape[:2]
+    k = h0//h
 
     imageBlob = cv2.dnn.blobFromImage(
 	cv2.resize(img, (300, 300)), 1.0, (300, 300),
@@ -179,7 +182,7 @@ if __name__ == '__main__':
         box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
         (startX, startY, endX, endY) = box.astype("int")
 
-        face = img[startY:endY, startX:endX]
+        face = frame[startY*k:endY*k, startX*k:endX*k]
         (fH, fW) = face.shape[:2]
 
         if fW < 20 or fH < 20:
@@ -196,17 +199,17 @@ if __name__ == '__main__':
         name = le.classes_[j]
 
         text = "{}: {:.2f}%".format(name, proba * 100)
-        y = startY - 10 if startY - 10 > 10 else startY + 10
+        y = startY*k - 10 if startY*k - 10 > 10 else startY*k + 10
 
-        cv2.rectangle(img, (startX, startY), (endX, endY),
+        cv2.rectangle(frame, (startX*k, startY*k), (endX*k, endY*k),
                       (0, 0, 255), 2)
-        cv2.putText(img, text, (startX, y),
+        cv2.putText(frame, text, (startX*k, y),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
 
         face = cv2.resize(face, (5, 5))
         face = cv2.resize(face, (fW, fH))
 
-        img[startY:endY, startX:endX] = face
+        frame[startY*k:endY*k, startX*k:endX*k] = face
 
         web_set(img)
  
