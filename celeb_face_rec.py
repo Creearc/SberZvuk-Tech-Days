@@ -304,8 +304,8 @@ if __name__ == '__main__':
             else:
                name = np.argmin(yourself_representation)
             cv2.putText(img, str(name), (box[0], box[1]), 
-                         cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2, cv2.LINE_AA)
-            print(name)
+                         cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 2, cv2.LINE_AA)
+            print(name, min(yourself_representation))
 ##            df['similarity'] = df['face_vector_raw'].apply(findCosineSimilarity)
 ##            df = df.sort_values(by=['similarity'], ascending=True)
 ##            instance = df.iloc[0]
