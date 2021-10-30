@@ -58,6 +58,7 @@ def load_face_dataset(inputPath, net, minConfidence=0.5,
 		# load the image from disk and extract the name of the person
 		# from the subdirectory structure
 		print(imagePath)
+		print(image)
 		image = cv2.imread(imagePath)
 		name = imagePath.split(os.path.sep)[-2]
 
