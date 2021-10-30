@@ -1,3 +1,21 @@
+import tensorflow as tf
+
+import keras
+from keras.preprocessing import image
+from keras.callbacks import ModelCheckpoint,EarlyStopping
+from keras.layers import Dense, Activation, Dropout, Flatten, Input, Convolution2D, ZeroPadding2D, MaxPooling2D, Activation
+from keras.layers import Conv2D, AveragePooling2D
+from keras.models import Model, Sequential
+from keras import metrics
+from keras.models import model_from_json
+
+from sklearn.model_selection import train_test_split
+
+import scipy.io
+import numpy as np
+
+import cv2
+
 def loadVggFaceModel():
    model = Sequential()
    model.add(ZeroPadding2D((1,1),input_shape=(224,224, 3)))
