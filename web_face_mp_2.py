@@ -201,7 +201,7 @@ if __name__ == '__main__':
         proba = preds[j]
         name = le.classes_[j]
 
-        if proba > 0.7:
+        if proba > 0.01:
           text = "{}: {:.2f}%".format(name, proba * 100)
           y = startY*k - 10 if startY*k - 10 > 10 else startY*k + 10
 
