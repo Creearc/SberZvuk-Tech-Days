@@ -7,6 +7,7 @@ import time
 import pickle
 import socketserver
 import requests
+import imutils
 import io
 from threading import Condition
 import threading
@@ -159,7 +160,8 @@ if __name__ == '__main__':
   while vid_capture.isOpened():
     ret, img = vid_capture.read()
 
-    if not ret: continue
+    if not ret:
+      continue
 
     img = imutils.resize(img, width=600)
     (h, w) = img.shape[:2]
