@@ -157,13 +157,15 @@ if __name__ == '__main__':
   vid_capture.set(cv2.CAP_PROP_FOURCC, CODEC)
   vid_capture.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
+  print('Go')
+  
   while vid_capture.isOpened():
     ret, frame = vid_capture.read()
 
     if not ret:
       continue
 
-    (h0, w0) = img.shape[:2]
+    (h0, w0) = frame.shape[:2]
     img = frame.copy()
     img = imutils.resize(img, width=600)
     (h, w) = img.shape[:2]
