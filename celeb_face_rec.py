@@ -321,32 +321,3 @@ if __name__ == '__main__':
 
    vid_capture.release()
    
-
- 
-
-
-
-img = cv2.imread("sefik.jpg")
- 
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-faces = face_cascade.detectMultiScale(img, 1.3, 5)
- 
-for (x,y,w,h) in faces:
-   detected_face = img[int(y):int(y+h), int(x):int(x+w)]
-    
-   try: #add 10% margin around the face
-      margin = 10
-      margin_x = int((w * margin)/100); margin_y = int((h * margin)/100)
-      detected_face = img[int(y-margin_y):int(y+h+margin_y), int(x-margin_x):int(x+w+margin_x)]
-   except:
-      print("detected face has no margin")
- 
-   detected_face = cv2.resize(detected_face, (224, 224))
- 
-#normalize in [-1, +1]
-img_pixels = image.img_to_array(detected_face)
-img_pixels = np.expand_dims(img_pixels, axis = 0)
-img_pixels /= 127.5
-img_pixels -= 1
- 
-yourself_representation = model.predict(img_pixels)[0,:]
