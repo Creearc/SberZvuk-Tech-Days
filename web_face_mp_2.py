@@ -52,7 +52,7 @@ PAGE="""\
 </head>
 <body>
 <center><h1>Test camera</h1></center>
-<center><img src="stream.mjpg" height=90% ></center>
+<center><img src="stream.mjpg" width=100% ></center>
 </body>
 </html>
 """
@@ -138,7 +138,7 @@ if __name__ == '__main__':
   youtube = True
 
   if youtube:
-    url = "https://www.youtube.com/watch?v=xnsEBCNf3RA"
+    url = "https://www.youtube.com/watch?v=e-ORhEE9VVg&ab"
     videoPafy = pafy.new(url)
     play = videoPafy.getbest(preftype="mp4")
   else:
