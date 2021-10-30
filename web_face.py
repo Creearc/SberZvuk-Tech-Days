@@ -166,4 +166,3 @@ if __name__ == '__main__':
             break
 
     vid_capture.release()
-    cv2.destroyAllWindows()
