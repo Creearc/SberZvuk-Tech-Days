@@ -1,5 +1,10 @@
 #pip install pafy
 #pip install youtube_dl
+
+# cd /d D:\hakaton\SberZvuk-Tech-Days
+# activate exercise_control
+# python web_face_mp.py
+
 import cv2
 import numpy as np
 import time
@@ -118,6 +123,7 @@ if __name__ == '__main__':
     s = Server()
     s.start()
 
+
     CODEC=cv2.VideoWriter_fourcc('M','J','P','G')
     vid_capture.set(cv2.CAP_PROP_FRAME_WIDTH, resolution[0])
     vid_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, resolution[1])
@@ -130,7 +136,8 @@ if __name__ == '__main__':
             while vid_capture.isOpened():
                 # Obtain image
                 ret, image = vid_capture.read()
-                
+                boxes = []
+
                 if not ret: continue
                 h, w = image.shape[:2]
 
@@ -141,27 +148,29 @@ if __name__ == '__main__':
                 
                 # Recolor image to BGR
                 image.flags.writeable = True
-                #print(results)
 
                 # Draw detected face
                 if results.detections:
                     for detection in results.detections:
-                        mp_drawing.draw_detection(image, detection)
+                        #print(detection.location_data.relative_bounding_box)
+                        det = detection.location_data.relative_bounding_box
+                        #mp_drawing.draw_detection(image, detection)
+                        boxes.append([int(det.xmin * w), int(det.ymin * h), int((det.width+det.xmin) * w), int((det.ymin+det.height) * h)])
 
-                '''
+                
                 if boxes:
                     for box in boxes:
                         face = image[box[1]:box[3], box[0]:box[2]]
                         # Blur
-                        if True:
+                        if not True:
                             face = cv2.resize(face, (10,10))
                             face = cv2.resize(face, (box[3]-box[1],box[2]-box[0]))
                         elif True:
-                            face = cv2.blur(face, (15, 15))
+                            face = cv2.blur(face, (45, 45))
 
                         image[box[1]:box[3], box[0]:box[2]] = face
                         #cv2.rectangle(image, (box[0],box[1]), (box[2],box[3]), (255,255,255), thickness=2)
-                '''
+                
                 web_set(image)
                 #cv2.imshow('feed', image)
                 
