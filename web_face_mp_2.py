@@ -133,11 +133,6 @@ def HAAR(image):
     return boxes
 
 if __name__ == '__main__':
-  model = loadVggFaceModel()
-  from keras.models import model_from_json
-  model.load_weights('vgg_face_weights.h5')
-   
-
   youtube = not True
 
   if youtube:
