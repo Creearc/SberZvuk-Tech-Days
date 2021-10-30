@@ -168,7 +168,7 @@ if __name__ == '__main__':
     (h0, w0) = frame.shape[:2]
     img = frame.copy()
 ##    img = imutils.resize(img, width=600)
-##    (h, w) = img.shape[:2]
+    (h, w) = img.shape[:2]
     k = 1
 
     imageBlob = cv2.dnn.blobFromImage(
