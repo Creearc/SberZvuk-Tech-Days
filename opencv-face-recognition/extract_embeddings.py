@@ -10,6 +10,7 @@ import imutils
 import pickle
 import cv2
 import os
+import time
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -47,12 +48,14 @@ knownNames = []
 
 # initialize the total number of faces processed
 total = 0
-
+t = time.time()
 # loop over the image paths
 for (i, imagePath) in enumerate(imagePaths):
 	# extract the person name from the image path
 	if i % 1000 == 0:
-		print("[INFO] processing image {}/{}".format(i + 1, len(imagePaths)))
+		dt = time.time() - t
+		print("[INFO] processing image {}/{}  {}/{}".format(i + 1, len(imagePaths), dt, (len(imagePaths) - i - 1) // 1000 * dt))
+		t = time.time()
 	name = imagePath.split(os.path.sep)[-2]
 
 	# load the image, resize it to have a width of 600 pixels (while
