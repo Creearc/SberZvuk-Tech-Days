@@ -7,8 +7,8 @@ app = Flask(__name__)
 def question_page():
   if request.method == 'POST':
     text = {
-      "code" : "<код возврата>",
-      "message" : "<сообщение>"
+      "code" : "200",
+      "message" : "OK"
       }
     return jsonify(text)
 
