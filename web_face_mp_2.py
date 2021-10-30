@@ -13,6 +13,7 @@ from threading import Condition
 import threading
 from multiprocessing import Process, Value, Queue
 from http import server
+import pafy
 import argparse
 
 ap = argparse.ArgumentParser()
