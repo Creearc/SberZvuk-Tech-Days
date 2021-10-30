@@ -66,13 +66,10 @@ def load_face_dataset(inputPath, net, minConfidence=0.5,
 		# only process images that have a sufficient number of
 		# examples belonging to the class
 		if counts[names.index(name)] < minSamples:
-			continue
-
-
-		faceROI = image.copy()
-		faceROI = cv2.resize(faceROI, (47, 62))
-		faceROI = cv2.cvtColor(faceROI, cv2.COLOR_BGR2GRAY)
-
+                        continue
+                faceROI = image.copy()
+                faceROI = cv2.resize(faceROI, (47, 62))
+                faceROI = cv2.cvtColor(faceROI, cv2.COLOR_BGR2GRAY)
 
                 faces.append(faceROI)
 		labels.append(name)
