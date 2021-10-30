@@ -411,5 +411,5 @@ if __name__ == "__main__":
   import os
   import wave
 
-  model = Model("vosk-model-small-ru-0.15")
+  model = Model("vosk-model-small-en-us-0.15")
   rec = KaldiRecognizer(model, 48000, words)
