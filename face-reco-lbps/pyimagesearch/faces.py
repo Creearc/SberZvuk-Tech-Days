@@ -68,20 +68,14 @@ def load_face_dataset(inputPath, net, minConfidence=0.5,
 		if counts[names.index(name)] < minSamples:
 			continue
 
-		# perform face detection
-		boxes = detect_faces(net, image, minConfidence)
 
-		# loop over the bounding boxes
-		for (startX, startY, endX, endY) in boxes:
-			# extract the face ROI, resize it, and convert it to
-			# grayscale
-			faceROI = image[startY:endY, startX:endX]
-			faceROI = cv2.resize(faceROI, (47, 62))
-			faceROI = cv2.cvtColor(faceROI, cv2.COLOR_BGR2GRAY)
+		faceROI = image.copy()
+		faceROI = cv2.resize(faceROI, (47, 62))
+		faceROI = cv2.cvtColor(faceROI, cv2.COLOR_BGR2GRAY)
 
-			# update our faces and labels lists
-			faces.append(faceROI)
-			labels.append(name)
+
+                faces.append(faceROI)
+		labels.append(name)
 
 	# convert our faces and labels lists to NumPy arrays
 	faces = np.array(faces)
