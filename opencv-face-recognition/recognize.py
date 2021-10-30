@@ -97,6 +97,7 @@ for i in range(0, detections.shape[2]):
 		# draw the bounding box of the face along with the associated
 		# probability
 		text = "{}: {:.2f}%".format(name, proba * 100)
+		print(text)
 		y = startY - 10 if startY - 10 > 10 else startY + 10
 		cv2.rectangle(image, (startX, startY), (endX, endY),
 			(0, 0, 255), 2)
