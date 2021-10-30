@@ -22,18 +22,22 @@ def HAAR(image):
         boxes.append([x1, y1, x2, y2])
     return boxes
 
+youtube = True
 
-url = "https://www.youtube.com/watch?v=6BAAHW4w5DE"
-videoPafy = pafy.new(url)
-play = videoPafy.getbest(preftype="mp4")
-
-#ip = "http://hackaton.sber-zvuk.com/hackathon_part_1.mp4"
+if youtube:
+    url = "https://www.youtube.com/watch?v=6BAAHW4w5DE"
+    videoPafy = pafy.new(url)
+    play = videoPafy.getbest(preftype="mp4")
+else:
+    ip = "http://hackaton.sber-zvuk.com/hackathon_part_1.mp4"
 
 haar_path = "face.xml"
 resolution=(1920, 1080)
-#resolution=(1280, 720)
 
-vid_capture = cv2.VideoCapture(play.url)
+if youtube:
+    vid_capture = cv2.VideoCapture(play.url)
+else:
+    vid_capture = cv2.VideoCapture(ip)
 
 CODEC=cv2.VideoWriter_fourcc('M','J','P','G')
 vid_capture.set(cv2.CAP_PROP_FRAME_WIDTH, resolution[0])
