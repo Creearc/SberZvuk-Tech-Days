@@ -53,8 +53,8 @@ t = time.time()
 for (i, imagePath) in enumerate(imagePaths):
 	# extract the person name from the image path
 	if i % 1000 == 0:
-		dt = time.time() - t
-		print("[INFO] processing image {}/{}  {}/{}".format(i + 1, len(imagePaths), dt, (len(imagePaths) - i - 1) // 1000 * dt))
+		dt = int(time.time() - t)
+		print("[INFO] processing image {}/{}  {}/{}".format(i + 1, len(imagePaths), dt, (len(imagePaths) - i - 1) // 1000 * dt / 60))
 		t = time.time()
 	name = imagePath.split(os.path.sep)[-2]
 
