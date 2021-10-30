@@ -1,13 +1,14 @@
 import os
 import cv2
 import pafy
+import threading
 
 PATH = 'txt'
 OUTPUT = 'dataset'
 
 URL = "https://www.youtube.com/watch?v={}"
 
-for idd in os.listdir(PATH):
+def ppp(idd):
   if not os.path.isdir('{}/{}'.format(OUTPUT, idd)):
     os.mkdir('{}/{}'.format(OUTPUT, idd))
   for url in os.listdir('{}/{}'.format(PATH, idd)):
@@ -52,4 +53,11 @@ for idd in os.listdir(PATH):
         
       f.close()
       vid_capture.release()
+      
+
+for idd in os.listdir(PATH):
+  threading.Thread(target=ppp, args=(idd, )).start()
+  
+  
     
+
