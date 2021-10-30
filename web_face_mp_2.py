@@ -138,7 +138,7 @@ if __name__ == '__main__':
   youtube = True
 
   if youtube:
-    url = "https://www.youtube.com/watch?v=e-ORhEE9VVg"
+    url = "https://www.youtube.com/watch?v=nfWlot6h_JM"
     videoPafy = pafy.new(url)
     play = videoPafy.getbest(preftype="mp4")
   else:
