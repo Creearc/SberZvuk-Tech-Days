@@ -237,7 +237,7 @@ if __name__ == '__main__':
      ret, img = vid_capture.read()
      
      if not ret: continue
-     h, w = image.shape[:2]
+     h, w = img.shape[:2]
 
      # Resize
      img = cv2.resize(image, (720,405))
