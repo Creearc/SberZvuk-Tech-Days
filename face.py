@@ -1,6 +1,9 @@
+#pip install pafy
+#pip install youtube_dl
 import cv2
 import numpy as np
 import time
+import pafy
 
 
 def HAAR(image):
@@ -10,7 +13,6 @@ def HAAR(image):
                                        flags = cv2.CASCADE_SCALE_IMAGE)
     if len(rects) == 0: return None
     rects[:,2:] += rects[:,:2]
-    #box = None
     boxes = []
     maximum = None
     for x1, y1, x2, y2 in rects:
@@ -18,17 +20,22 @@ def HAAR(image):
       if maximum is None or maximum < size:
         maximum = size
         boxes.append([x1, y1, x2, y2])
-        #box = [x1, y1, x2, y2]
     return boxes
 
 
-ip = "http://hackaton.sber-zvuk.com/hackathon_part_1.mp4"
+url = "https://www.youtube.com/watch?v=6BAAHW4w5DE"
+videoPafy = pafy.new(url)
+play = videoPafy.getbest(preftype="mp4")
+
+#ip = "http://hackaton.sber-zvuk.com/hackathon_part_1.mp4"
+
 haar_path = "face.xml"
 resolution=(1920, 1080)
 #resolution=(1280, 720)
 
+vid_capture = cv2.VideoCapture(play.url)
+
 CODEC=cv2.VideoWriter_fourcc('M','J','P','G')
-vid_capture = cv2.VideoCapture(ip)
 vid_capture.set(cv2.CAP_PROP_FRAME_WIDTH, resolution[0])
 vid_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, resolution[1])
 vid_capture.set(cv2.CAP_PROP_FOURCC, CODEC)
@@ -38,6 +45,7 @@ vid_capture.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 while vid_capture.isOpened():
     # Obtain image
     ret, image = vid_capture.read()
+    
     if not ret: continue
     h, w = image.shape[:2]
 
