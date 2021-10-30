@@ -57,28 +57,18 @@ def load_face_dataset(inputPath, net, minConfidence=0.5,
 	for imagePath in imagePaths:
 		# load the image from disk and extract the name of the person
 		# from the subdirectory structure
+		
 		image = cv2.imread(imagePath)
 		name = imagePath.split(os.path.sep)[-2]
 
-		# only process images that have a sufficient number of
-		# examples belonging to the class
 		if counts[names.index(name)] < minSamples:
 			continue
+		faceROI = image.copy()
+		faceROI = cv2.resize(faceROI, (47, 62))
+		faceROI = cv2.cvtColor(faceROI, cv2.COLOR_BGR2GRAY)
 
-		# perform face detection
-		boxes = detect_faces(net, image, minConfidence)
-
-		# loop over the bounding boxes
-		for (startX, startY, endX, endY) in boxes:
-			# extract the face ROI, resize it, and convert it to
-			# grayscale
-			faceROI = image[startY:endY, startX:endX]
-			faceROI = cv2.resize(faceROI, (47, 62))
-			faceROI = cv2.cvtColor(faceROI, cv2.COLOR_BGR2GRAY)
-
-			# update our faces and labels lists
-			faces.append(faceROI)
-			labels.append(name)
+		faces.append(faceROI)
+		labels.append(name)
 
 	# convert our faces and labels lists to NumPy arrays
 	faces = np.array(faces)

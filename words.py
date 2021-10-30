@@ -1,11 +1,11 @@
 
-if not True:
+if True:
   arr = []
   arr1 = []
   f = open('vox1_meta.csv', 'r')
   for l in f:
     for word in l.split()[1].replace('_', ' ' ).split():
-      arr.append(word)
+      arr.append(word.lower())
   f.close()
 
   arr = set(arr)
@@ -21,7 +21,7 @@ if not True:
   print('''  "{}" '''.format('", "'.join([element for element in arr[(i+1)*k :]])))
   print('  ]')
 
-arr = [
+arr2 = [
   "A.J.", "A.R.", "Aamir", "Aaron", "Abbie",
   "Abel", "Abigail", "Abraham", "Abrams", "Accola",
   "Ackles", "Adam", "Adler", "Adlon", "Adrianne",
@@ -401,8 +401,8 @@ arr = [
   "" 
   ]
 
-arr = []
-arr = [chr(i) for i in range(97, 97 + 26)]
+#arr = []
+#arr = [chr(i) for i in range(97, 97 + 26)]
 
 words = '["{}", "[unk]"]'.format(' '.join(arr))
 
