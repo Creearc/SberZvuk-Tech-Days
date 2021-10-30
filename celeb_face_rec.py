@@ -103,7 +103,6 @@ model.load_weights('vgg_face_weights.h5')
 
 
 img = cv2.imread("sefik.jpg")
-plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
  
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 faces = face_cascade.detectMultiScale(img, 1.3, 5)
