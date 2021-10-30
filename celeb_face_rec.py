@@ -290,7 +290,6 @@ if __name__ == '__main__':
 
             img[box[1]:box[3], box[0]:box[2]] = face
             #cv2.rectangle(image, (box[0],box[1]), (box[2],box[3]), (255,255,255), thickness=2)
-
             face = cv2.resize(face, (224, 224))
             
             img_pixels = image.img_to_array(face)
@@ -300,7 +299,10 @@ if __name__ == '__main__':
             img_pixels -= 1
              
             yourself_representation = model.predict(img_pixels)[0,:]
-            print(np.argmin(yourself_representation))
+            name = np.argmin(yourself_representation)
+            cv2.putText(img, name, (box[0], box[1]), 
+                         cv2.FONT_HERSHEY_PLAIN,fontScale, (0, 0, 0), 2)
+            print(name)
 ##            df['similarity'] = df['face_vector_raw'].apply(findCosineSimilarity)
 ##            df = df.sort_values(by=['similarity'], ascending=True)
 ##            instance = df.iloc[0]
