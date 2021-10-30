@@ -62,7 +62,7 @@ def findFaceRepresentation(detected_face):
    except:
       representation = None
  
-return representation
+   return representation
  
 
 def findCosineSimilarity(source_representation, test_representation=yourself_representation):
