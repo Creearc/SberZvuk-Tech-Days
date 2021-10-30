@@ -1,15 +1,24 @@
 import os
 import cv2
+import pafy
 
-PATH = 'C:/Users/Саша/Downloads/vox1_dev_txt/txt'
+PATH = 'txt'
+OUTPUT = 'dataset'
 
 URL = "https://www.youtube.com/watch?v={}"
 
 for idd in os.listdir(PATH):
+  if not os.path.isdir('{}/{}'.format(OUTPUT, idd)):
+    os.mkdir('{}/{}'.format(OUTPUT, idd))
   for url in os.listdir('{}/{}'.format(PATH, idd)):
     skip = False
     print(URL.format(url))
-    vid_capture = cv2.VideoCapture(URL.format(url))
+    try:
+      videoPafy = pafy.new(URL.format(url))
+      play = videoPafy.getbest(preftype="mp4")
+      vid_capture = cv2.VideoCapture(play.url)
+    except:
+      continue
     frame_count = int(vid_capture.get(cv2.CAP_PROP_FRAME_COUNT))
     print(frame_count)
     
@@ -34,7 +43,9 @@ for idd in os.listdir(PATH):
           skip = True
           break
 
-        cv2.imshow('feed', image[y : y + h, x : x + w])
+        name = '{}/{}'.format(OUTPUT, idd)
+        cv2.imwrite('{}/{}/{}.jpg'.format(OUTPUT, idd, len(os.listdir('{}/{}'.format(OUTPUT, idd)))),
+                    image[y : y + h, x : x + w])
     
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
