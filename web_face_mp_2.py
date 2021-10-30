@@ -200,18 +200,19 @@ if __name__ == '__main__':
         proba = preds[j]
         name = le.classes_[j]
 
-        text = "{}: {:.2f}%".format(name, proba * 100)
-        y = startY*k - 10 if startY*k - 10 > 10 else startY*k + 10
+        if proba > 0.7:
+          text = "{}: {:.2f}%".format(name, proba * 100)
+          y = startY*k - 10 if startY*k - 10 > 10 else startY*k + 10
 
-        cv2.rectangle(frame, (startX*k, startY*k), (endX*k, endY*k),
-                      (0, 0, 255), 2)
-        cv2.putText(frame, text, (startX*k, y),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
+          cv2.rectangle(frame, (startX*k, startY*k), (endX*k, endY*k),
+                        (0, 0, 255), 2)
+          cv2.putText(frame, text, (startX*k, y),
+                      cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
 
-        face = cv2.resize(face, (5, 5))
-        face = cv2.resize(face, (fW, fH))
+          face = cv2.resize(face, (5, 5))
+          face = cv2.resize(face, (fW, fH))
 
-        frame[startY*k:endY*k, startX*k:endX*k] = face
+          frame[startY*k:endY*k, startX*k:endX*k] = face
 
         web_set(frame)
  
