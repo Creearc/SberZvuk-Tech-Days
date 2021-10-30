@@ -300,7 +300,7 @@ if __name__ == '__main__':
             img_pixels -= 1
              
             yourself_representation = model.predict(img_pixels)[0,:]
-            print(min(yourself_representation))
+            print(np.argmin(yourself_representation))
 ##            df['similarity'] = df['face_vector_raw'].apply(findCosineSimilarity)
 ##            df = df.sort_values(by=['similarity'], ascending=True)
 ##            instance = df.iloc[0]
