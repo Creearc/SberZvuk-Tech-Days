@@ -299,7 +299,10 @@ if __name__ == '__main__':
             img_pixels -= 1
              
             yourself_representation = model.predict(img_pixels)[0,:]
-            name = np.argmin(yourself_representation)
+            if min(yourself_representation) > 8:
+               name = 'no body'
+            else:
+               name = np.argmin(yourself_representation)
             cv2.putText(img, str(name), (box[0], box[1]), 
                          cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2, cv2.LINE_AA)
             print(name)
