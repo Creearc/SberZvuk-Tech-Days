@@ -213,6 +213,6 @@ if __name__ == '__main__':
 
         frame[startY*k:endY*k, startX*k:endX*k] = face
 
-        web_set(img)
+        web_set(frame)
  
   vid_capture.release()
