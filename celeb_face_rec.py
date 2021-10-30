@@ -65,7 +65,7 @@ def findFaceRepresentation(detected_face):
    return representation
  
 
-def findCosineSimilarity(source_representation, test_representation=yourself_representation):
+def findCosineSimilarity(source_representation, test_representation):
    try:
       a = np.matmul(np.transpose(source_representation), test_representation)
       b = np.sum(np.multiply(source_representation, source_representation))
