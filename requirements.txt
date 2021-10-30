@@ -1,0 +1,9 @@
+requests==2.23.0
+numpy
+Flask==1.0.2
+imutils==0.5.4
+io
+pafy
+youtube_dl
+argparse
+vosk
