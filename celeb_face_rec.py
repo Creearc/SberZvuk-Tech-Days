@@ -247,10 +247,10 @@ if __name__ == '__main__':
      
      if boxes:
          for box in boxes:
-            face = image[box[1]:box[3], box[0]:box[2]]
+            face = img[box[1]:box[3], box[0]:box[2]]
             # Blur
             if True:
-              face = cv2.resize(face, (10,10))
+              face = cv2.resize(face, (5, 5))
               face = cv2.resize(face, (box[3]-box[1],box[2]-box[0]))
             elif True:
               face = cv2.blur(face, (15, 15))
