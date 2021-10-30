@@ -234,16 +234,16 @@ if __name__ == '__main__':
 
    while vid_capture.isOpened():
      # Obtain image
-     ret, image = vid_capture.read()
+     ret, img = vid_capture.read()
      
      if not ret: continue
      h, w = image.shape[:2]
 
      # Resize
-     image = cv2.resize(image, (720,405))
+     img = cv2.resize(image, (720,405))
 
      cascade = cv2.CascadeClassifier(haar_path)    
-     boxes = HAAR(image)
+     boxes = HAAR(img)
      
      if boxes:
          for box in boxes:
@@ -255,10 +255,10 @@ if __name__ == '__main__':
             elif True:
               face = cv2.blur(face, (15, 15))
 
-            image[box[1]:box[3], box[0]:box[2]] = face
+            img[box[1]:box[3], box[0]:box[2]] = face
             #cv2.rectangle(image, (box[0],box[1]), (box[2],box[3]), (255,255,255), thickness=2)
 
-            img_pixels = image.img_to_array(detected_face)
+            img_pixels = face.img_to_array(detected_face)
             img_pixels = image.img_to_array(detected_face)
             img_pixels = np.expand_dims(img_pixels, axis = 0)
             img_pixels /= 127.5
@@ -267,7 +267,7 @@ if __name__ == '__main__':
             yourself_representation = model.predict(img_pixels)[0,:]
             print(yourself_representation)
             
-     web_set(image)
+     web_set(img)
      #cv2.imshow('feed', image)
      
      if cv2.waitKey(1) & 0xFF == ord('q'):
