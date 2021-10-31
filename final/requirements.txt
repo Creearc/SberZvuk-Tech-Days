@@ -4,3 +4,4 @@ Flask==1.0.2
 imutils
 argparse
 opencv-python
+scikit-learn
