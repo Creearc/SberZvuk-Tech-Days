@@ -7,7 +7,7 @@ def ask(url, data):
 
 
 if __name__ == "__main__":
-  url = 'localhost:80/recognize'
+  url = '46.243.142.161/recognize'
   
   data = {
     "source" : "http://hackaton.sber-zvuk.com/hackathon_part_1.mp4", 
