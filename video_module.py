@@ -2,9 +2,12 @@ import os
 import cv2
 import numpy as np
 import pickle
+import multiprocessing
+from multiprocessing import Process, Value, Queue
 
 FACE_CONFIDENCE = 0.5
 RECOGNITION_CONFIDENCE = 0.01
+CPU_COUNT = multiprocessing.cpu_count()
 
 class Analyzer():
   def __init__(self):
@@ -17,25 +20,28 @@ class Analyzer():
     self.recognizer = pickle.loads(open("models/recognizer.pickle", "rb").read())
     self.le = pickle.loads(open("models/le.pickle", "rb").read())
 
-  def start(self, url, prefix):   
-    vid_capture = cv2.VideoCapture(url)
-    frame_count = int(vid_capture.get(cv2.CAP_PROP_FRAME_COUNT))
-    frame_rate = int(vid_capture.get(cv2.CAP_PROP_FPS))
-    codec = vid_capture.get(cv2.CAP_PROP_FOURCC)
-    w = int(vid_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
-    h = int(vid_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+  def start(self, url, cores=1):   
+    self.vid_capture = cv2.VideoCapture(url)
+    self.frame_count = int(self.vid_capture.get(cv2.CAP_PROP_FRAME_COUNT))
+    
+    for i in range(cores):
+      part = self.frame_count // cores
+      start = part * i
+      if i == cores - 1:
+        end = self.frame_count
+      else:
+        end = part * (i + 1)
+      c = Process(target=self.process, args=(start, end, ))
+      c.start()
+      c.join()
 
-    vid_out = cv2.VideoWriter('{}_result.mp4'.format(prefix),
-                              codec, frame_rate, (w, h))
-    
-    
-    for i in range(frame_count):
-      percent = int(i / frame_count * 100) % 5
-      if percent == 0:
-        print('{}%'.format(percent))
-        
-      vid_capture.set(1, i)
-      _, frame = vid_capture.read()
+    self.vid_capture.release()      
+    print('Complite')
+
+  def process(self, start, end):
+    for i in range(start, end):
+      self.vid_capture.set(1, i)
+      _, frame = self.vid_capture.read()
       if frame is None:
         continue
 
@@ -83,14 +89,8 @@ class Analyzer():
 
             frame[startY:endY, startX:endX] = face
 
-      vid_out.write(frame)
-
-    vid_capture.release()
-    vid_out.release()
-
 
 if __name__ == '__main__':
   url = "http://hackaton.sber-zvuk.com/hackathon_part_1.mp4"
-  prefix = '1234'
   a = Analyzer()
-  a.start(url, prefix)
+  a.start(url, CPU_COUNT)
