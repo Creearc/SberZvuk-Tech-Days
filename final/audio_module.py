@@ -2,8 +2,8 @@ from audio import *
 import urllib.request
 
 def start(link,prefix):
-    video_path = 'output/{}_video.mp4'.format(prefix)
-    audio_path = 'output/{}_audio.wav'.format(prefix)
+    video_path = 'output/tmp_{}_video.mp4'.format(prefix)
+    audio_path = 'output/tmp_{}_audio.wav'.format(prefix)
     urllib.request.urlretrieve(link, video_path)
     #extract_audio(video_path,audio_path)
     print('audio is extracted!')
