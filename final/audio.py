@@ -24,9 +24,10 @@ def change_num_channels(filepath="output.wav"):
 def clear_names(names):
     names_clear =[]
     for elem in names:
-        for i in range(len(elem['result'])):
-            if elem['result'][i]['word'] != '[unk]':
-                names_clear.append(elem['result'][i])
+        if ('result' in elem.keys()):
+            for i in range(len(elem['result'])):
+                if elem['result'][i]['word'] != '[unk]':
+                    names_clear.append(elem['result'][i])
     return(names_clear)
 
 def names_words_collect(filepath,modelpath='models/vosk-model-small-en-us-0.15',words=names_set):
