@@ -24,7 +24,8 @@ class Analyzer():
         vid_capture = cv2.VideoCapture(url)
         frame_count = int(vid_capture.get(cv2.CAP_PROP_FRAME_COUNT))
         frame_rate = int(vid_capture.get(cv2.CAP_PROP_FPS))
-        codec = int(vid_capture.get(cv2.CAP_PROP_FOURCC))
+        #codec = int(vid_capture.get(cv2.CAP_PROP_FOURCC))
+        codec = cv2.VideoWriter_fourcc('M','J','P','G')
         w = int(vid_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
         h = int(vid_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
