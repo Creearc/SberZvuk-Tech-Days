@@ -63,17 +63,17 @@ for (i, imagePath) in enumerate(imagePaths):
 		continue
 
 	face = image.copy()
-        (fH, fW) = face.shape[:2]
+	(fH, fW) = face.shape[:2]
 
 
-        faceBlob = cv2.dnn.blobFromImage(face, 1.0 / 255,
-                (96, 96), (0, 0, 0), swapRB=True, crop=False)
-        embedder.setInput(faceBlob)
-        vec = embedder.forward()
+	faceBlob = cv2.dnn.blobFromImage(face, 1.0 / 255,
+		(96, 96), (0, 0, 0), swapRB=True, crop=False)
+	embedder.setInput(faceBlob)
+	vec = embedder.forward()
 
-        knownNames.append(name)
-        knownEmbeddings.append(vec.flatten())
-        total += 1
+	knownNames.append(name)
+	knownEmbeddings.append(vec.flatten())
+	total += 1
 
 # dump the facial embeddings + names to disk
 print("[INFO] serializing {} encodings...".format(total))
