@@ -18,7 +18,7 @@ def process(url, prefix):
     audio_name = "{}/tmp_{}_audio.wav".format(OUTPUT_FOLDER, prefix)
     video_name = "{}/tmp_{}_video.mp4".format(OUTPUT_FOLDER, prefix)
     compose_video_module.composit(audio_name, video_name,
-                                  "{}_result.mp4".format(prefix))
+                                  "{}/{}_result.mp4".format(OUTPUT_FOLDER, prefix))
 
     for file_name in ["{}/{}_audio.json".format(OUTPUT_FOLDER, prefix),
                       #"{}/{}_video.json".format(prefixOUTPUT_FOLDER, ),
