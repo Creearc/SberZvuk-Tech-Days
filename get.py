@@ -15,14 +15,14 @@ print(ftp.login(user='alexandr', passwd='9'))
 
 
 ftp.cwd('~/SberZvuk-Tech-Days/opencv-face-recognition/output')
-#ftp.cwd('~/SberZvuk-Tech-Days/opencv-face-recognition')
+ftp.cwd('~/SberZvuk-Tech-Days/opencv-face-recognition')
 
 #for i in range(28, 36):
 if True:
   fl = 'embeddings.pickle'
   fl = 'le.pickle'
   fl = 'recognizer.pickle'
-  #fl = 'openface_nn4.small2.v1.t7'
+  fl = 'openface_nn4.small2.v1.t7'
   out = '{}\{}'.format(PATH, fl)
 
   with open(out, 'wb') as f:
