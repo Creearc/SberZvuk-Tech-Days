@@ -21,7 +21,7 @@ ftp.cwd('~/SberZvuk-Tech-Days/final/models')
 if True:
   fl = 'embeddings.pickle'
   fl = 'le.pickle'
-  #fl = 'recognizer.pickle'
+  fl = 'recognizer.pickle'
   #fl = 'openface_nn4.small2.v1.t7'
   out = '{}\{}'.format(PATH, fl)
 
