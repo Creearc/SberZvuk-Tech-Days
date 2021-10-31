@@ -10,7 +10,7 @@ if __name__ == "__main__":
   url = '46.243.142.161/recognize'
   
   data = {
-    "source" : "http://hackaton.sber-zvuk.com/hackathon_part_1.mp4", 
+    "source" : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4", 
     "prefix" : "Rostislav" 
     }
   

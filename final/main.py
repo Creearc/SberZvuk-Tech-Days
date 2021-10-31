@@ -32,7 +32,7 @@ def process(url, prefix):
                        video_name]
 
     for file_name in files_to_remove:
-        os.remove('{}/{}'.format(OUTPUT_FOLDER, file_name))
+        os.remove(file_name)
 
 
 app = Flask(__name__)
