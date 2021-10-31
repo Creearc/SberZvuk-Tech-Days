@@ -4,8 +4,8 @@ import numpy as np
 import pickle
 
 FACE_CONFIDENCE = 0.5
-RECOGNITION_CONFIDENCE = 0.01
-
+RECOGNITION_CONFIDENCE = 0.2
+OUTPUT_FOLDER = 'output'
 
 class Analyzer():
     def __init__(self):
@@ -29,7 +29,7 @@ class Analyzer():
         w = int(vid_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
         h = int(vid_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-        vid_out = cv2.VideoWriter('tmp_{}_video.mp4'.format(prefix),
+        vid_out = cv2.VideoWriter('{}/tmp_{}_video.mp4'.format(OUTPUT_FOLDER, prefix),
                                   codec, frame_rate, (w, h))
 
         for i in range(frame_count):

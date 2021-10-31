@@ -15,19 +15,19 @@ def process(url, prefix):
     video_analyzer.start(url, prefix)
     audio_module.start(url, prefix)
 
-    audio_name = "tmp_{}_audio.wav".format(prefix)
-    video_name = "tmp_{}_video.mp4".format(prefix)
+    audio_name = "{}/tmp_{}_audio.wav".format(OUTPUT_FOLDER, prefix)
+    video_name = "{}/tmp_{}_video.mp4".format(OUTPUT_FOLDER, prefix)
     compose_video_module.composit(audio_name, video_name,
                                   "{}_result.mp4".format(prefix))
 
-    for file_name in ["{}_audio.json".format(prefix),
-                      #"{}_video.json".format(prefix),
-                      "{}_result.mp4".format(prefix)]:
+    for file_name in ["{}/{}_audio.json".format(OUTPUT_FOLDER, prefix),
+                      #"{}/{}_video.json".format(prefixOUTPUT_FOLDER, ),
+                      "{}/{}_result.mp4".format(OUTPUT_FOLDER, prefix)]:
         buck_module.upl(filename=file_name, s3_path=file_name)
 
-    files_to_remove = ["{}_audio.json".format(prefix),
-                       #"{}_video.json".format(prefix),
-                       "{}_result.mp4".format(prefix),
+    files_to_remove = ["{}/{}_audio.json".format(OUTPUT_FOLDER, prefix),
+                       #"{}/{}_video.json".format(prefixOUTPUT_FOLDER, ),
+                       "{}/{}_result.mp4".format(OUTPUT_FOLDER, prefix),
                        audio_name,
                        video_name]
 
