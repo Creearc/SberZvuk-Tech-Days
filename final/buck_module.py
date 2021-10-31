@@ -74,12 +74,6 @@ if __name__ == "__main__":
     s3_path = "vid_test_result.mp4"
     filename = "test_result.mp4"
 
-    asyncio.run(
-        upload(
-            filename=filename,
-            staging_path=s3_path,
-            key_id="ISI2088GEMLH8RACBTXC",
-            access_key="NWzeBtZdHHLIlwaaSOVUIkh3qukzhc5japhrdXwx",
-            bucket="hackathon-ecs-31",
-        )
-    )
+    upl(filename=filename, s3_path=s3_path)
+
+
