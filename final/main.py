@@ -12,8 +12,8 @@ OUTPUT_FOLDER = 'output'
 
 
 def process(url, prefix):
-    video_analyzer.start(url, prefix)
     audio_module.start(url, prefix)
+    video_analyzer.start(url, prefix)  
 
     audio_name = "{}/tmp_{}_audio.wav".format(OUTPUT_FOLDER, prefix)
     video_name = "{}/tmp_{}_video.mp4".format(OUTPUT_FOLDER, prefix)
