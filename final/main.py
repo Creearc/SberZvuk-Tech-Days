@@ -9,6 +9,7 @@ import compose_video_module
 import buck_module
 
 OUTPUT_FOLDER = 'output'
+q = ()
 
 
 def process(url, prefix):
@@ -23,7 +24,7 @@ def process(url, prefix):
     for file_name in ["{}/{}_audio.json".format(OUTPUT_FOLDER, prefix),
                       #"{}/{}_video.json".format(prefixOUTPUT_FOLDER, ),
                       "{}/{}_result.mp4".format(OUTPUT_FOLDER, prefix)]:
-        buck_module.upl(filename=file_name, s3_path=file_name.split('/')[0])
+        buck_module.upl(filename=file_name, s3_path=file_name.split('/')[1])
 
     files_to_remove = ["{}/{}_audio.json".format(OUTPUT_FOLDER, prefix),
                        #"{}/{}_video.json".format(prefixOUTPUT_FOLDER, ),
