@@ -31,7 +31,7 @@ def process(url, prefix):
                        audio_name,
                        video_name]
 
-    print(os.listdir(OUTPUT))
+    print(os.listdir(OUTPUT_FOLDER))
 
     for file_name in files_to_remove:
         os.remove(file_name)
