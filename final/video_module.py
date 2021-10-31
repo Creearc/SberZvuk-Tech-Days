@@ -6,90 +6,94 @@ import pickle
 FACE_CONFIDENCE = 0.5
 RECOGNITION_CONFIDENCE = 0.01
 
+
 class Analyzer():
-  def __init__(self):
-    protoPath = "models/deploy.prototxt"
-    modelPath = "models/res10_300x300_ssd_iter_140000.caffemodel"
+    def __init__(self):
+        protoPath = "models/deploy.prototxt"
+        modelPath = "models/res10_300x300_ssd_iter_140000.caffemodel"
 
-    self.detector = cv2.dnn.readNetFromCaffe(protoPath, modelPath)
-    self.embedder = cv2.dnn.readNetFromTorch("models/openface_nn4.small2.v1.t7")
+        self.detector = cv2.dnn.readNetFromCaffe(protoPath,
+                                                 modelPath)
+        self.embedder = cv2.dnn.readNetFromTorch("models/openface_nn4.small2.v1.t7")
 
-    self.recognizer = pickle.loads(open("models/recognizer.pickle", "rb").read())
-    self.le = pickle.loads(open("models/le.pickle", "rb").read())
+        self.recognizer = pickle.loads(open("models/recognizer.pickle",
+                                            "rb").read())
+        self.le = pickle.loads(open("models/le.pickle", "rb").read())
 
-  def start(self, url, prefix):   
-    vid_capture = cv2.VideoCapture(url)
-    frame_count = int(vid_capture.get(cv2.CAP_PROP_FRAME_COUNT))
-    frame_rate = int(vid_capture.get(cv2.CAP_PROP_FPS))
-    codec = int(vid_capture.get(cv2.CAP_PROP_FOURCC))
-    w = int(vid_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
-    h = int(vid_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    def start(self, url, prefix):
+        vid_capture = cv2.VideoCapture(url)
+        frame_count = int(vid_capture.get(cv2.CAP_PROP_FRAME_COUNT))
+        frame_rate = int(vid_capture.get(cv2.CAP_PROP_FPS))
+        codec = int(vid_capture.get(cv2.CAP_PROP_FOURCC))
+        w = int(vid_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
+        h = int(vid_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-    vid_out = cv2.VideoWriter('tmp_{}_video.mp4'.format(prefix),
-                              codec, frame_rate, (w, h))
-    
-    
-    for i in range(frame_count):
-      if i % 100 == 0:
-        print('{}%'.format(int(i / frame_count * 100)))
-        
-      vid_capture.set(1, i)
-      _, frame = vid_capture.read()
-      if frame is None:
-        continue
+        vid_out = cv2.VideoWriter('tmp_{}_video.mp4'.format(prefix),
+                                  codec, frame_rate, (w, h))
 
-      h, w = frame.shape[:2]
-      imageBlob = cv2.dnn.blobFromImage(
-	cv2.resize(frame, (300, 300)), 1.0, (300, 300),
-	(104.0, 177.0, 123.0), swapRB=False, crop=False)
+        for i in range(frame_count):
+            if i % 100 == 0:
+                print('{}%'.format(int(i / frame_count * 100)))
 
-      self.detector.setInput(imageBlob)
-      detections = self.detector.forward()
+            vid_capture.set(1, i)
+            _, frame = vid_capture.read()
+            if frame is None:
+                continue
 
-      for i in range(0, detections.shape[2]):
-        confidence = detections[0, 0, i, 2]
-        if confidence > FACE_CONFIDENCE:
-          box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
-          (startX, startY, endX, endY) = box.astype("int")
+            h, w = frame.shape[:2]
+            imageBlob = cv2.dnn.blobFromImage(
+                        cv2.resize(frame, (300, 300)), 1.0, (300, 300),
+                        (104.0, 177.0, 123.0), swapRB=False, crop=False)
 
-          face = frame[startY:endY, startX:endX]
-          (fH, fW) = face.shape[:2]
+            self.detector.setInput(imageBlob)
+            detections = self.detector.forward()
 
-          if fW < 20 or fH < 20:
-            continue
+            for i in range(0, detections.shape[2]):
+                confidence = detections[0, 0, i, 2]
+                if confidence > FACE_CONFIDENCE:
+                    box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
+                    (startX, startY, endX, endY) = box.astype("int")
 
-          faceBlob = cv2.dnn.blobFromImage(face, 1.0 / 255, (96, 96),
-                                           (0, 0, 0), swapRB=True, crop=False)
-          self.embedder.setInput(faceBlob)
-          vec = self.embedder.forward()
-          preds = self.recognizer.predict_proba(vec)[0]
+                    face = frame[startY:endY, startX:endX]
+                    (fH, fW) = face.shape[:2]
 
-          j = np.argmax(preds)
-          proba = preds[j]
-          name = self.le.classes_[j]
+                    if fW < 20 or fH < 20:
+                        continue
 
-          if proba > RECOGNITION_CONFIDENCE:
-            text = "{}: {:.2f}%".format(name, proba * 100)
-            
-            y = startY - 10 if startY - 10 > 10 else startY + 10
-            cv2.rectangle(frame, (startX, startY), (endX, endY),
-                          (0, 0, 255), 2)
-            cv2.putText(frame, text, (startX, y),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
+                    faceBlob = cv2.dnn.blobFromImage(face, 1.0 / 255, (96, 96),
+                                                     (0, 0, 0), swapRB=True,
+                                                     crop=False)
+                    self.embedder.setInput(faceBlob)
+                    vec = self.embedder.forward()
+                    preds = self.recognizer.predict_proba(vec)[0]
 
-            face = cv2.resize(face, (5, 5))
-            face = cv2.resize(face, (fW, fH))
+                    j = np.argmax(preds)
+                    proba = preds[j]
+                    name = self.le.classes_[j]
 
-            frame[startY:endY, startX:endX] = face
+                    if proba > RECOGNITION_CONFIDENCE:
+                        text = "{}: {:.2f}%".format(name, proba * 100)
 
-      vid_out.write(frame)
+                        y = startY - 10 if startY - 10 > 10 else startY + 10
+                        cv2.rectangle(frame, (startX, startY), (endX, endY),
+                                      (0, 0, 255), 2)
+                        cv2.putText(frame, text, (startX, y),
+                                    cv2.FONT_HERSHEY_SIMPLEX,
+                                    0.45, (0, 0, 255), 2)
 
-    vid_capture.release()
-    vid_out.release()
+                        face = cv2.resize(face, (5, 5))
+                        face = cv2.resize(face, (fW, fH))
+
+                        frame[startY:endY, startX:endX] = face
+
+            vid_out.write(frame)
+
+        vid_capture.release()
+        vid_out.release()
 
 
 if __name__ == '__main__':
-  url = "http://hackaton.sber-zvuk.com/hackathon_part_1.mp4"
-  prefix = '1234'
-  a = Analyzer()
-  a.start(url, prefix)
+    url = "http://hackaton.sber-zvuk.com/hackathon_part_1.mp4"
+    prefix = '1234'
+    a = Analyzer()
+    a.start(url, prefix)
