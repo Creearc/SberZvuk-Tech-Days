@@ -2,15 +2,8 @@ version: '3'
 services:
   backend:
     restart: unless-stopped
-    image: my-container-perevalov:latest # name of the image
+    image: pavel-superstar:latest # name of the image
     container_name: my-backend # name of the container
     ports:
-      - '8000:8000' # mapping ports of the container to the "outside"
-    command: gunicorn -b :8000 --chdir /home/qanary_example app:app # command that starts the app
-  relation_prediction:
-    restart: unless-stopped
-    image: my-container-perevalov:latest
-    container_name: my-relation-prediction
-    ports:
-      - '1130:1130'
-    command: gunicorn -b :1130 --chdir /home/qanary_example/app/relation_prediction app:app
+      - '80:80' # mapping ports of the container to the "outside"
+    command: python3 main.py # command that starts the app
