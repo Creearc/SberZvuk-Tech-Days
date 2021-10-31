@@ -25,6 +25,8 @@ class Analyzer():
     w = vid_capture.get(cv2.CAP_PROP_FRAME_WIDTH)
     h = vid_capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
+    print(codec, frame_rate, (w, h))
+
     vid_out = cv2.VideoWriter('tmp_{}_video.mp4'.format(prefix),
                               codec, frame_rate, (w, h))
     
