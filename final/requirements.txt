@@ -6,3 +6,6 @@ argparse
 opencv-python
 scikit-learn
 moviepy
+urllib
+pydub
+wave
