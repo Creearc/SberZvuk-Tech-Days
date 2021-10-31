@@ -1,5 +1,27 @@
 #pip install pafy
 #pip install youtube_dl
+
+"""
+screen -dmS nn -L -Logfile ~/logfile_3.txt   python3 extract_embeddings.py --dataset ~/dataset \
+    --embeddings output/embeddings.pickle \
+    --detector face_detection_model \
+    --embedding-model openface_nn4.small2.v1.t7
+    
+python3 train_model.py --embeddings output/embeddings.pickle \
+    --recognizer output/recognizer.pickle \
+    --le output/le.pickle
+    
+python3 recognize.py --detector face_detection_model \
+    --embedding-model openface_nn4.small2.v1.t7 \
+    --recognizer output/recognizer.pickle \
+    --le output/le.pickle \
+    --image images/adrian.jpg
+
+python3 web_face_mp_2.py --detector opencv-face-recognition/face_detection_model\
+    --embedding-model opencv-face-recognition/openface_nn4.small2.v1.t7 \
+    --recognizer opencv-face-recognition/output/recognizer.pickle \
+    --le opencv-face-recognition/output/le.pickle
+"""
 import os
 import cv2
 import numpy as np
@@ -133,7 +155,7 @@ def HAAR(image):
     return boxes
 
 if __name__ == '__main__':
-  youtube = True
+  youtube = not True
 
   if youtube:
     url = "https://www.youtube.com/watch?v=nfWlot6h_JM"
@@ -152,7 +174,7 @@ if __name__ == '__main__':
   s = Server()
   s.start()
 
-  CODEC=cv2.VideoWriter_fourcc('M','J','P','G')
+  CODEC = cv2.VideoWriter_fourcc('M','J','P','G')
   vid_capture.set(cv2.CAP_PROP_FOURCC, CODEC)
   vid_capture.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
