@@ -82,8 +82,8 @@ def final_names_collect(fws,json_file_path,stop = names_arr):
             res.append({"time_start": elem['start'],
                         "time_end": elem['end']})
             res_dict ={'result':res}
-            with open(json_file_path, 'w') as jf:
-                json.dump(res_dict,jf,indent=3)
+    with open(json_file_path, 'w') as jf:
+        json.dump(res_dict,jf,indent=3)
     return(res)
 
 def audio_change(res,filepath="output1.wav",output_filepath="clean.wav"):
