@@ -12,7 +12,7 @@ CPU_COUNT = multiprocessing.cpu_count()
 class Analyzer():
   def __init__(self):
     protoPath = "models/deploy.prototxt"
-    modelPath = "modelsl/res10_300x300_ssd_iter_140000.caffemodel"
+    modelPath = "models/res10_300x300_ssd_iter_140000.caffemodel"
 
     self.detector = cv2.dnn.readNetFromCaffe(protoPath, modelPath)
     self.embedder = cv2.dnn.readNetFromTorch("models/openface_nn4.small2.v1.t7")
