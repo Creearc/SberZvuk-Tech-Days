@@ -5,7 +5,7 @@ def start(link,prefix):
     video_path = 'output/tmp_{}_video.mp4'.format(prefix)
     audio_path = 'output/tmp_{}_audio.wav'.format(prefix)
     urllib.request.urlretrieve(link, video_path)
-    #extract_audio(video_path,audio_path)
+    extract_audio(video_path,audio_path)
     print('audio is extracted!')
     change_num_channels(audio_path)
     print('chanels are changed!!')
