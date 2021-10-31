@@ -10,3 +10,4 @@ pydub
 wave
 vosk
 scipy
+aiboto3
