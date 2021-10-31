@@ -9,7 +9,6 @@ import compose_video_module
 import buck_module
 
 OUTPUT_FOLDER = 'output'
-q = ()
 
 
 def process(url, prefix):
