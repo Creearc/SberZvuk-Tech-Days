@@ -23,11 +23,11 @@ async def test_connect(key_id, access_key, bucket):
 async def upload(
                 filename: str,
                 staging_path,
-                key_id: str, 
-                access_key: str, 
+                key_id: str,
+                access_key: str,
                 bucket: str,
                 ) -> str:
-                
+
     blob_s3_key = f"{filename}"
 
     s3_endpoint_url = "https://obs.ru-moscow-1.hc.sbercloud.ru"
@@ -43,18 +43,19 @@ async def upload(
 
     async with client as s3:
         try:
-            #with open(staging_path) as spfp:
             print(f"Uploading {blob_s3_key} to s3")
             Key = staging_path
             await s3.upload_file(filename, bucket, staging_path)
             print(f"Finished Uploading {blob_s3_key} to s3")
         except Exception as e:
-            print(f"Unable to s3 upload {staging_path} to {blob_s3_key}: {e} ({type(e)})")
+            print(f"""Unable to s3 upload {staging_path}
+                      to {blob_s3_key}: {e} ({type(e)})""")
             return ""
 
     return f"s3://{blob_s3_key}"
 
-def upl(filename,s3_path):
+
+def upl(filename, s3_path):
     asyncio.run(
         upload(
             filename=filename,
@@ -66,9 +67,10 @@ def upl(filename,s3_path):
     )
 
 if __name__ == "__main__":
-    #s3_path = "test_video.json"
-    #filename = "test.json"
-    
+    '''
+    s3_path = "test_video.json"
+    filename = "test.json"
+    '''
     s3_path = "vid_test_result.mp4"
     filename = "test_result.mp4"
 
