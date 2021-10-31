@@ -1,4 +1,4 @@
-from Audio import *
+from audio import *
 import urllib.request
 
 def start(link,prefix):
