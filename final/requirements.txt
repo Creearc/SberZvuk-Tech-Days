@@ -5,3 +5,4 @@ imutils
 argparse
 opencv-python
 scikit-learn
+moviepy
