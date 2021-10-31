@@ -43,7 +43,7 @@ def names_words_collect(filepath,modelpath='models/vosk-model-small-en-us-0.15',
         if rec.AcceptWaveform(data):
             words_dict.append(json.loads(rec.Result()))
     clean_names = clear_names(words_dict)
-    print(len(clean_names))
+    #print(len(clean_names))
     return(clean_names)
 
 def rus_words_collect(filepath,modelpath='models/vosk-model-small-ru-0.22'):
@@ -58,7 +58,7 @@ def rus_words_collect(filepath,modelpath='models/vosk-model-small-ru-0.22'):
             break
         if rec.AcceptWaveform(data):
             words_dict.append(json.loads(rec.Result()))
-    print(len(words_dict))
+    #print(len(words_dict))
     return(words_dict)
 
 
@@ -83,7 +83,7 @@ def final_names_collect(fws,json_file_path,stop = names_arr):
         if elem['word'] in stop:
             res.append({"time_start": elem['start'],
                         "time_end": elem['end']})
-    print(len(res))
+    #print(len(res))
     res_dict ={'result':res}
     with open(json_file_path, 'w') as jf:
         json.dump(res_dict,jf,indent=3)
