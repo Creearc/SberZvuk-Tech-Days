@@ -25,7 +25,7 @@ class Analyzer():
         frame_count = int(vid_capture.get(cv2.CAP_PROP_FRAME_COUNT))
         frame_rate = int(vid_capture.get(cv2.CAP_PROP_FPS))
         #codec = int(vid_capture.get(cv2.CAP_PROP_FOURCC))
-        codec = cv2.VideoWriter_fourcc('M','J','P','G')
+        codec = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
         w = int(vid_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
         h = int(vid_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
@@ -75,12 +75,12 @@ class Analyzer():
                     if proba > RECOGNITION_CONFIDENCE:
                         text = "{}: {:.2f}%".format(name, proba * 100)
 
-                        y = startY - 10 if startY - 10 > 10 else startY + 10
-                        cv2.rectangle(frame, (startX, startY), (endX, endY),
-                                      (0, 0, 255), 2)
-                        cv2.putText(frame, text, (startX, y),
-                                    cv2.FONT_HERSHEY_SIMPLEX,
-                                    0.45, (0, 0, 255), 2)
+##                        y = startY - 10 if startY - 10 > 10 else startY + 10
+##                        cv2.rectangle(frame, (startX, startY), (endX, endY),
+##                                      (0, 0, 255), 2)
+##                        cv2.putText(frame, text, (startX, y),
+##                                    cv2.FONT_HERSHEY_SIMPLEX,
+##                                    0.45, (0, 0, 255), 2)
 
                         face = cv2.resize(face, (5, 5))
                         face = cv2.resize(face, (fW, fH))
