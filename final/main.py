@@ -23,7 +23,7 @@ def process(url, prefix):
     for file_name in ["{}/{}_audio.json".format(OUTPUT_FOLDER, prefix),
                       #"{}/{}_video.json".format(prefixOUTPUT_FOLDER, ),
                       "{}/{}_result.mp4".format(OUTPUT_FOLDER, prefix)]:
-        buck_module.upl(filename=file_name, s3_path=file_name.split('/'[0]))
+        buck_module.upl(filename=file_name, s3_path=file_name.split('/')[0])
 
     files_to_remove = ["{}/{}_audio.json".format(OUTPUT_FOLDER, prefix),
                        #"{}/{}_video.json".format(prefixOUTPUT_FOLDER, ),
