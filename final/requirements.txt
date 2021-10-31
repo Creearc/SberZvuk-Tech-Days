@@ -9,5 +9,4 @@ moviepy
 pydub
 wave
 vosk
-json
 scipy
