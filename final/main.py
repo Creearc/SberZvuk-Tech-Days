@@ -1,21 +1,36 @@
+import os
 import threading
 from flask import Flask, request, redirect, url_for, jsonify
 import json
 
 import video_module
+import compose_video_module
 import buck_module
 
+OUTPUT_FOLDER = 'output'
 
 def process(url, prefix):
   video_analyzer.start(url, prefix)
-
+  audio_analyzer.start(url, prefix)
+  
+  audio_name = "tmp_{}_audio.wav".format(prefix)
+  video_name = "tmp_{}_video.mp4".format(prefix)
+  compose_video_module.composit(audio_name, video_name,
+                                "{}_result.mp4".format(prefix))
 
   for file_name in ["{}_audio.json".format(prefix),
                     "{}_video.json".format(prefix),
                     "{}_result.mp4".format(prefix)]:
+    buck_module.upl(filename=file_name, s3_path=file_name)
 
-    buck_module.upl(filename=file_name,
-                    s3_path=file_name)
+  files_to_remove = ["{}_audio.json".format(prefix),
+                     "{}_video.json".format(prefix),
+                     "{}_result.mp4".format(prefix),
+                     audio_name,
+                     video_name]
+  
+  for file_name in files_to_remove:
+    os.remove('{}/{}'.format(OUTPUT_FOLDER, file_name))
   
 
 
