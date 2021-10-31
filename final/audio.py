@@ -69,9 +69,9 @@ def final_set_collect(rus,names):
                     if  eng['end'] <= elem1['end'] and eng['conf'] >= elem1['conf'] and elem1['end'] > eng['start'] >= elem1['start'] or eng['end'] >= elem1['end'] and eng['conf'] >= elem1['conf'] and elem1['end'] > eng['start'] >= elem1['start'] or elem1['start'] < eng['end'] <= elem1['end'] and eng['conf'] >= elem1['conf'] and eng['start'] <= elem1['start'] or eng['end'] >= elem1['end'] and eng['conf'] >= elem1['conf'] and eng['start'] <= elem1['start']:
                         final_word_set.append(eng)
                         break
-                        else:
-                            if eng == names[-1]:
-                                final_word_set.append(elem1)
+                    else:
+                        if eng == names[-1]:
+                            final_word_set.append(elem1)
     return(final_word_set)
 
 def final_names_collect(fws,json_file_path,stop = names_arr):
