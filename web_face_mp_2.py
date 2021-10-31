@@ -2,7 +2,7 @@
 #pip install youtube_dl
 
 """
-screen -dmS nn -L -Logfile ~/logfile_3.txt   python3 extract_embeddings.py --dataset ~/dataset \
+screen -dmS nn -L -Logfile ~/logfile_3.txt   python3 extract_embeddings.py --dataset ../ds \
     --embeddings output/embeddings.pickle \
     --detector face_detection_model \
     --embedding-model openface_nn4.small2.v1.t7
