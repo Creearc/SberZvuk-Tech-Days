@@ -9,3 +9,6 @@ moviepy
 urllib
 pydub
 wave
+vosk
+json
+scipy
