@@ -14,7 +14,7 @@ ftp.connect(HOST, PORT)
 print(ftp.login(user='alexandr', passwd='9'))
 
 
-ftp.cwd('~/SberZvuk-Tech-Days/final/models')
+ftp.cwd('~/SberZvuk-Tech-Days/opencv-face-recognition/output')
 #ftp.cwd('~/SberZvuk-Tech-Days/opencv-face-recognition')
 
 #for i in range(28, 36):
