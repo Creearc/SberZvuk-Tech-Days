@@ -19,13 +19,11 @@ class Analyzer():
 
   def start(self, url, prefix):   
     vid_capture = cv2.VideoCapture(url)
-    frame_count = vid_capture.get(cv2.CAP_PROP_FRAME_COUNT)
-    frame_rate = vid_capture.get(cv2.CAP_PROP_FPS)
-    codec = vid_capture.get(cv2.CAP_PROP_FOURCC)
-    w = vid_capture.get(cv2.CAP_PROP_FRAME_WIDTH)
-    h = vid_capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
-
-    print(codec, frame_rate, (w, h))
+    frame_count = int(vid_capture.get(cv2.CAP_PROP_FRAME_COUNT))
+    frame_rate = int(vid_capture.get(cv2.CAP_PROP_FPS))
+    codec = int(vid_capture.get(cv2.CAP_PROP_FOURCC))
+    w = int(vid_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
+    h = int(vid_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
     vid_out = cv2.VideoWriter('tmp_{}_video.mp4'.format(prefix),
                               codec, frame_rate, (w, h))
