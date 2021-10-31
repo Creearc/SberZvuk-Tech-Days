@@ -40,7 +40,7 @@ class Analyzer():
 
   def process(self, start, end):
     for i in range(start, end):
-      cap.set(1, i)
+      self.vid_capture.set(1, i)
       _, frame = self.vid_capture.read()
       if frame is None:
         continue
