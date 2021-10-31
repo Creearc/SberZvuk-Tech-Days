@@ -1,3 +1,4 @@
+import multiprocessing
 from multiprocessing import Process, Value, Queue
 
 FACE_CONFIDENCE = 0.5
