@@ -30,9 +30,8 @@ class Analyzer():
     
     
     for i in range(frame_count):
-      percent = int(i / frame_count * 100) % 5
-      if percent == 0:
-        print('{}%'.format(percent))
+      if i % 100 == 0:
+        print('{}%'.format(int(i / frame_count * 100)))
         
       vid_capture.set(1, i)
       _, frame = vid_capture.read()
